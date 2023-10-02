@@ -14,7 +14,6 @@ int RecursiveWage(int workedTime, int preHourWage = 100) {
 
 	// 現在の時間の時給を計算
 	int currentHourWage = preHourWage * 2 - 50;
-
 	return  currentHourWage + RecursiveWage(workedTime - 1, currentHourWage);
 }
 
