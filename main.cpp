@@ -1,9 +1,19 @@
-#include <iostream>
+#include "Dog.h"
+#include "Cat.h"
+#include "Chicken.h"
 #include <windows.h>
 
+
 int main() {
-	SetConsoleOutputCP(65001);
-	char str[] = "ソ";
-	printf("%s", str);
+	IAnimal* animals[3]{
+		new Dog(),
+		new Cat(),
+		new Chicken()
+	};
+
+	for (int i = 0; i < 3; i++) {
+		animals[i]->MakeSound();
+	}
+
 	return 0;
 }
