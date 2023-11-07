@@ -1,18 +1,15 @@
-#include "Dog.h"
-#include "Cat.h"
-#include "Chicken.h"
-#include <windows.h>
-
+#include "Circle.h"
+#include "Rectangle.h"
 
 int main() {
-	IAnimal* animals[3]{
-		new Dog(),
-		new Cat(),
-		new Chicken()
+	IShape* shapes[2]{
+		new Circle(),
+		new Rectangle()
 	};
 
-	for (int i = 0; i < 3; i++) {
-		animals[i]->MakeSound();
+	for (int i = 0; i < 2; i++) {
+		shapes[i]->size();
+		shapes[i]->draw();
 	}
 
 	return 0;
