@@ -4,8 +4,9 @@
 #include <Windows.h>
 #include <time.h>
 
-void SetTimeout(int second) {
+void SetTimeout(std::function<void()> func, int second) {
 	Sleep(1000 * second);
+	func();
 }
 
 int main() {
@@ -17,11 +18,6 @@ int main() {
 
 	// コールバック関数
 	std::function<void()> result = [&]() {
-		printf("結果は");
-		for (int i = 0; i < 3; i++) {
-			printf(".");
-			SetTimeout(1);
-		}
 		int num = rand() % 6 + 1;
 		printf("%d\n", num);
 		// 結果によって分岐
@@ -43,6 +39,7 @@ int main() {
 		}
 
 		// 結果を確認
-		callBack();
+		printf("結果は...");
+		SetTimeout(result, 3);
 	}
 }
