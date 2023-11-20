@@ -4,6 +4,10 @@
 #include <Windows.h>
 #include <time.h>
 
+void SetTimeout(int second) {
+	Sleep(1000 * second);
+}
+
 int main() {
 	// 乱数初期化
 	srand((unsigned int)time(nullptr));
@@ -11,17 +15,12 @@ int main() {
 	// プレイヤーの選択を格納する関数
 	int playerChoice;
 
-	// 関数ポインタを宣言
-	
-	
-	// 指定した秒数時間を止める関数
-	std::function<void(int)> setTimeout = [](int second) { Sleep(1000 * second); };
 	// コールバック関数
-	std::function<void(std::function<void(int)>)> callBack = [&](std::function<void(int)> timeOutFunc) {
+	std::function<void()> callBack = [&]() {
 		printf("結果は");
 		for (int i = 0; i < 3; i++) {
 			printf(".");
-			timeOutFunc(1);
+			SetTimeout(1);
 		}
 		int num = rand() % 6 + 1;
 		printf("%d\n", num);
@@ -33,7 +32,8 @@ int main() {
 			printf("残念！\n");
 		}
 	};
-	
+
+
 	while (true) {
 		printf("半(奇数)なら1、丁(偶数)なら0を入力してください。（それ以外の数字で終了） -> ");
 		scanf_s("%d", &playerChoice);
@@ -43,6 +43,6 @@ int main() {
 		}
 
 		// 結果を確認
-		callBack(setTimeout);
+		callBack();
 	}
 }
