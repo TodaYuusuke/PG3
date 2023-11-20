@@ -16,7 +16,7 @@ int main() {
 	int playerChoice;
 
 	// コールバック関数
-	std::function<void()> callBack = [&]() {
+	std::function<void()> result = [&]() {
 		printf("結果は");
 		for (int i = 0; i < 3; i++) {
 			printf(".");
