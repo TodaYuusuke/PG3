@@ -8,20 +8,25 @@ int main() {
 	// 乱数初期化
 	srand((unsigned int)time(nullptr));
 
-	// プレイヤーの選択
+	// プレイヤーの選択を格納する関数
 	int playerChoice;
+
 	// 関数ポインタを宣言
-	std::function<int()> randomAnswer = []() {return rand() % 6 + 1; };
-	std::function<void(std::function<int()>, bool, int)> callBack = [](std::function<int()> func, bool ans, int second) {
+	
+	
+	// 指定した秒数時間を止める関数
+	std::function<void(int)> setTimeout = [](int second) { Sleep(1000 * second); };
+	// コールバック関数
+	std::function<void(std::function<void(int)>)> callBack = [&](std::function<void(int)> timeOutFunc) {
 		printf("結果は");
-		for (int i = 0; i < second; i++) {
+		for (int i = 0; i < 3; i++) {
 			printf(".");
-			Sleep(1000);
+			timeOutFunc(1);
 		}
-		int num = func();
+		int num = rand() % 6 + 1;
 		printf("%d\n", num);
 		// 結果によって分岐
-		if (ans == num % 2) {
+		if (playerChoice == num % 2) {
 			printf("正解！\n");
 		}
 		else {
@@ -38,6 +43,6 @@ int main() {
 		}
 
 		// 結果を確認
-		callBack(randomAnswer, (bool)playerChoice, 3);
+		callBack(setTimeout);
 	}
 }
