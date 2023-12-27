@@ -1,45 +1,45 @@
 #include <stdio.h>
-#include <stdlib.h>
+#include <algorithm>
+#include <list>
 #include <functional>
 #include <Windows.h>
-#include <time.h>
 
-void SetTimeout(std::function<void()> func, int second) {
-	Sleep(1000 * second);
-	func();
+void PrintList(const char* year, std::list<const char*> list) {
+	int index = 0;
+	// 表示
+	printf(" - %s - \n", year);
+	for (std::list<const char*>::iterator itr = list.begin(); itr != list.end(); ++itr, ++index) {
+		printf("%02d:%s\n", index, *itr);
+	}
+	printf("\n");
 }
 
 int main() {
-	// 乱数初期化
-	srand((unsigned int)time(nullptr));
 
-	// プレイヤーの選択を格納する関数
-	int playerChoice;
-
-	// コールバック関数
-	std::function<void()> result = [&]() {
-		int num = rand() % 6 + 1;
-		printf("%d\n", num);
-		// 結果によって分岐
-		if (playerChoice == num % 2) {
-			printf("正解！\n");
-		}
-		else {
-			printf("残念！\n");
-		}
+	// 駅名リスト
+	std::list<const char*> stationName = {
+		"Tokyo","Kanda","Akihabara","Okachimachi","Ueno","Uguisudani","Nippori",
+		"Tabata","Komagome","Sugamo","Otsuka","Ikebukuro","Mejiro","Takadanobaba",
+		"Shin-Okubo","Shinjuku","Yoyogi","Harajuku","Shibuya","Ebisu","Meguro",
+		"Gotanda","Osaki","Shinagawa","Tamachi","Hamamatsucho","Shimbashi","Yurakucho"
 	};
+	// 駅を挿入するためのイテレータ
+	std::list<const char*>::iterator itr;
 
+	// 表示
+	PrintList("1970", stationName);
+	
+	// 駅を追加
+	itr = std::find_if(stationName.begin(), stationName.end(), [](const char* name) { return name == "Tabata"; });
+	stationName.insert(itr, "Nishi-Nippori");
+	
+	// 表示
+	PrintList("2019", stationName);
 
-	while (true) {
-		printf("半(奇数)なら1、丁(偶数)なら0を入力してください。（それ以外の数字で終了） -> ");
-		scanf_s("%d", &playerChoice);
-		// 0か1以外なら終了
-		if (playerChoice != 0 && playerChoice != 1) {
-			break;
-		}
-
-		// 結果を確認
-		printf("結果は...");
-		SetTimeout(result, 3);
-	}
+	// 駅を追加
+	itr = std::find_if(stationName.begin(), stationName.end(), [](const char* name) { return name == "Tamachi"; });
+	stationName.insert(itr, "Takanawa-Gateway");
+	
+	// 表示
+	PrintList("2022", stationName);
 }
