@@ -52,6 +52,6 @@ int main() {
 
 	// 表示
 	for (std::vector<std::string>::iterator itr = dataList.begin(); itr != dataList.end(); ++itr) {
-		printf("%s\n", *itr);
+		printf("%s\n", static_cast<std::string>(*itr).c_str());
 	}
 }
