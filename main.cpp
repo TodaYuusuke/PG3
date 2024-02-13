@@ -11,7 +11,7 @@ int GetRandomAnswer() {
 }
 
 // 指定された数秒待ってから関数を実行する関数
-void CallBack(PFunc p, bool ans, int second) {
+void SetTimeOut(PFunc p, bool ans, int second) {
 	printf("結果は");
 	for (int i = 0; i < second; i++) {
 		printf(".");
@@ -46,6 +46,6 @@ int main() {
 		}
 
 		// 結果を確認
-		CallBack(pfunc, (bool)playerChoice, 3);
+		SetTimeOut(pfunc, (bool)playerChoice, 3);
 	}
 }
